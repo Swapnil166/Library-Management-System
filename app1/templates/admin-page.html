@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<body class="p-3 mb-2 bg-dark text-black">
+<nav class="navbar navbar-light bg-light">
+        <form class="container-fluid justify-content-start" METHOD="post">
+            {%csrf_token%}
+          <span class="navbar-brand mb-0 h1">Library Management System   <h2 color="red"> {{f}}</h2></span>
+           <a href="/addbook/"> <button class="btn btn-outline-success me-2"  type="button">Add Book</button></a>
+            <a href="/"> <button class="btn btn-outline-success me-2" type="button">Logout</button></a>
+        </form>
+</nav>
+
+<div class="row">
+      <div class="column " class="p-3 mb-2 bg-dark text-black">
+            <table class="table table-hover table-dark" style="width:100%;margin-top:2%;margin-left:10%" class="p-3 mb-2 bg-dark text-black">
+                <thead>
+                    <tr>
+                        <th scope="col">Book Id</th>
+                        <th scope="col">Book Name</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                         {%for i in d%}
+
+                        <th scope="row">{{i.bookid}}</th>
+                        <td>{{i.bookname}}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="{% url 'update' i.bookid %}"><button type="button" class="btn btn-secondary">Update</button></a>
+
+                                <a href="{% url 'delete' i.bookid %}"><button type="button" class="btn btn-secondary">Delete</button></a>
+                            </div>
+                        </td>
+                    </tr>
+
+                        {%endfor%}
+                </tbody>
+            </table>
+
+      </div>
+
+</div>
+
+</body>
+</html>
